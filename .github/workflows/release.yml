@@ -1,0 +1,51 @@
+name: Release AquaCode
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build AquaCode
+        run: pnpm run dist
+
+      - name: Generate SHA256 checksums
+        shell: powershell
+        run: |
+          Get-ChildItem dist -Recurse -Include *.exe,*.zip,*.tar.xz |
+          Get-FileHash -Algorithm SHA256 |
+          ForEach-Object {
+            "$($_.Hash.ToLower())  $($_.Path | Split-Path -Leaf)"
+          } | Out-File dist/SHA256SUMS.txt
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/**/*.exe
+            dist/**/*.zip
+            dist/**/*.tar.xz
+            dist/SHA256SUMS.txt
