@@ -1,0 +1,2 @@
+55dc42ef2d313293aa5f13158622ac7a6a99b887deb9b863c4d3955e75323145 AquaCode.Setup.0.1.0-alpha.exe
+874a314d24ae9bae035702ee995ab2edbb515bc8cea7a7d0fdeabadcb54a14a3 aquacode-v0.1.0-alpha.tar.xz 
