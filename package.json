@@ -1,0 +1,28 @@
+{
+  "name": "aquacode",
+  "version": "0.1.0-alpha",
+  "description": "Aquarium themed code editor",
+  "main": "main.js",
+  "author": "Jacob",
+  "license": "MIT",
+
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron .",
+    "dist": "electron-builder"
+  },
+
+  "devDependencies": {
+    "electron": "^38.0.0",
+    "electron-builder": "^26.0.12"
+  },
+
+  "build": {
+    "appId": "com.aquacode.app",
+    "productName": "AquaCode",
+
+    "win": {
+      "target": "nsis"
+    }
+  }
+}
